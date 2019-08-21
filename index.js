@@ -13,18 +13,18 @@ const schema = buildSchema(`
     name: String
     animalType: String
   }
-`)
+`);
 
-let pets = [
+var pets = [
   { id: 1, name: "Zoe", animalType: "dog" },
   { id: 2, name: "Kima", animalType: "dog" },
   { id: 3, name: "Penny", animalType: "cat" }
-]
+];
 
-function getPet(id) {
+function getPet(args) {
   return pets.find(function(pet) {
-    return pet.id === id
-  })
+    return pet.id === args.id;
+  });
 }
 
 function getPets(animalType) {
@@ -35,7 +35,7 @@ function getPets(animalType) {
 const root = {
   pet: getPet,
   pets: getPets
-}
+};
 
 app.use('/graphql', express_graphql({
   schema: schema,
