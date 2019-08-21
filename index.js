@@ -12,13 +12,23 @@ const schema = buildSchema(`
     id: Int
     name: String
     animalType: String
+    owner: Owner
+  },
+  type Owner {
+    id: Int
+    name: String
   }
 `);
 
+var owners = [
+  { id: 1, name: "Alexandra" },
+  { id: 2, name: "Eric" },
+];
+
 var pets = [
-  { id: 1, name: "Zoe", animalType: "dog" },
-  { id: 2, name: "Kima", animalType: "dog" },
-  { id: 3, name: "Penny", animalType: "cat" }
+  { id: 1, name: "Zoe", animalType: "dog", owner: owners[1] },
+  { id: 2, name: "Kima", animalType: "dog", owner: owners[0] },
+  { id: 3, name: "Penny", animalType: "cat", owner: owners[1] }
 ];
 
 function getPet(args) {
