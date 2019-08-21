@@ -27,9 +27,14 @@ function getPet(args) {
   });
 }
 
-function getPets(animalType) {
-  // TODO: filter down to a particular animalType
-  return pets
+function getPets(args) {
+  if (args.animalType) {
+    return pets.filter(function(pet) {
+      return pet.animalType === args.animalType;
+    })
+  } else {
+    return pets;
+  }
 }
 
 const root = {
