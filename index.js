@@ -8,6 +8,7 @@ const schema = buildSchema(`
     pet(id: Int!): Pet
     pets(animalType: String): [Pet]
     owner(id: Int!): Owner
+    owners: [Owner]
   },
   type Pet {
     id: Int
@@ -71,7 +72,8 @@ function getOwners() {
 const root = {
   pet: getPet,
   pets: getPets,
-  owner: getOwner
+  owner: getOwner,
+  owners: getOwners
 };
 
 app.use('/graphql', express_graphql({
