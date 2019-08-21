@@ -7,6 +7,7 @@ const schema = buildSchema(`
   type Query {
     pet(id: Int!): Pet
     pets(animalType: String): [Pet]
+    owner(id: Int!): Owner
   },
   type Pet {
     id: Int
@@ -22,7 +23,7 @@ const schema = buildSchema(`
 
 var owners = [
   { id: 1, name: "Alexandra" },
-  { id: 2, name: "Eric" },
+  { id: 2, name: "Eric" }
 ];
 
 var pets = [
@@ -32,8 +33,24 @@ var pets = [
 ];
 
 function getPet(args) {
-  return pets.find(function(pet) {
-    return pet.id === args.id;
+  return getById("pet", args)
+}
+
+function getOwner(args) {
+  return getById("owner", args)
+}
+
+function getById(type, args) {
+  let collection
+
+  if (type === "pet") {
+    collection = pets
+  } else if (type === "owner") {
+    collection = owners
+  }
+
+  return collection.find(function (element) {
+    return element.id === args.id;
   });
 }
 
@@ -47,9 +64,14 @@ function getPets(args) {
   }
 }
 
+function getOwners() {
+  return owners;
+}
+
 const root = {
   pet: getPet,
-  pets: getPets
+  pets: getPets,
+  owner: getOwner
 };
 
 app.use('/graphql', express_graphql({
