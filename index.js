@@ -6,7 +6,7 @@ const app = express();
 const schema = buildSchema(`
   type Query {
     pet(id: Int!): Pet
-    pets(animalType: String): [Pet]
+    pets(animalType: String = null): [Pet]
     owner(id: Int!): Owner
     owners: [Owner]
   },
@@ -83,3 +83,53 @@ app.use('/graphql', express_graphql({
 }));
 
 app.listen(3000, () => console.log('Express GraphQL Server Now Running On localhost:3000/graphql'));
+
+// {
+//   pet(id: 1) {
+//     id
+//     name
+//     animalType
+//     owner {
+//       id
+//       name
+//     }
+//   }
+// }
+
+// {
+//   pets {
+//     id
+//     name
+//     animalType
+//     owner {
+//       id
+//       name
+//     }
+//   }
+// }
+
+// {
+//   pets(animalType: "dog") {
+//     id
+//     name
+//     animalType
+//     owner {
+//       id
+//       name
+//     }
+//   }
+// }
+
+// {
+//   owner(id: 1) {
+//     id
+//     name
+//   }
+// }
+
+// {
+//   owners {
+//     id
+//     name
+//   }
+// }
